@@ -6,3 +6,6 @@ sudo mv /tmp/eksctl /usr/local/bin
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.0/2024-05-12/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv kubectl /usr/local/bin
+
+
+#eksctl create cluster --config-file=<ymlfile>
