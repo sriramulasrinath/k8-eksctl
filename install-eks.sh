@@ -11,11 +11,13 @@ git clone https://github.com/sriramulasrinath/k8-eksctl.git
 
 git clone https://github.com/sriramulasrinath/k8-resources.git
 
+
+
 sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 
-cd /eksctl
+cd /k8-eksctl
 eksctl create cluster --config-file=<ymlfile>
 #https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/install-eks.sh
 #eksctl create cluster --config-file=<ymlfile>
