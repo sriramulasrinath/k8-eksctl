@@ -7,5 +7,13 @@ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.0/2024-05-12/bin/linu
 chmod +x ./kubectl
 sudo mv kubectl /usr/local/bin
 
+git clone https://github.com/sriramulasrinath/k8-eksctl.git
+
+git clone https://github.com/sriramulasrinath/k8-resources.git
+
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
 
 #eksctl create cluster --config-file=<ymlfile>
