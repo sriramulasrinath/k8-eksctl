@@ -18,6 +18,6 @@ sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 
 cd k8-eksctl
-eksctl create cluster --config-file=eks.yml
+sh eksctl create cluster --config-file=eks.yml
 #https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/install-eks.sh
 #eksctl create cluster --config-file=<ymlfile>
