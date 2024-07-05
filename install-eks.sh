@@ -20,6 +20,10 @@ sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32" #installing ebs drivers
 
+kubectl kustomize \
+    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-2.0" > public-ecr-driver.yaml #installing eks drivers
+
+
 cd k8-eksctl
 eksctl create cluster --config-file=eks.yml
 #https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/install-eks.sh
