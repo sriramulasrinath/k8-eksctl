@@ -9,6 +9,15 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+VALIDATE() {
+  if [ $1 -ne 0 ]; then
+    echo -e "$R$2...FAILED$N"
+    exit 1
+  else
+    echo -e "$G$2...SUCCESS$N"
+  fi
+}
+
 #install eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin &>>$LOGFILE
@@ -33,7 +42,7 @@ lvextend -l +50%FREE /dev/RootVG/rootVol &>>$LOGFILE
 lvextend -l +50%FREE /dev/RootVG/varVol &>>$LOGFILE
 xfs_growfs / &>>$LOGFILE
 xfs_growfs /var &>>$LOGFILE
-VALIDATE $? "Disk Resized....$Y SKIPPING $N" &>>$LOGFILE
+VALIDATE $? "Disk Resized....$Y SKIPPING $N" 
 
 
 
@@ -63,5 +72,5 @@ VALIDATE $? "installed HElM....$Y SKIPPING $N"
 
 cd k8-eksctl &>>$LOGFILE
 eksctl create cluster --config-file=eks.yml &>>$LOGFILE
-VALIDATE $? "installed eksctl cluster...$Y SKIPPING $N"
+VALIDATE $? "created eksctl cluster...$Y SKIPPING $N"
 
