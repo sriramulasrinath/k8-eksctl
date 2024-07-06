@@ -30,7 +30,7 @@ lvextend -l +50%FREE /dev/RootVG/rootVol
 lvextend -l +50%FREE /dev/RootVG/varVol
 xfs_growfs /
 xfs_growfs /var
-VALIDATE $? "Disk Resized"
+VALIDATE $? "Disk Resized....$Y SKIPPING $N"
 
 
 
