@@ -1,6 +1,9 @@
 #!/bin/bash
 #https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/workstation.sh
-
+USERID=$(id -u)
+TIMESTAMP=$(date +%F-%H-%M-%S)
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -8,40 +11,40 @@ N="\e[0m"
 
 #install eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-sudo mv /tmp/eksctl /usr/local/bin
+sudo mv /tmp/eksctl /usr/local/bin &>>$LOGFILE
 VALIDATE $? "installed eksctl....$Y SKIPPING $N" 
 
 #install kubectl
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.0/2024-05-12/bin/linux/amd64/kubectl
-chmod +x ./kubectl
+chmod +x ./kubectl &>>$LOGFILE
 sudo mv kubectl /usr/local/bin
 VALIDATE $? "installed kubectl....$Y SKIPPING $N" 
 
 
 #installing kubens
-git clone https://github.com/ahmetb/kubectx /opt/kubectx
+git clone https://github.com/ahmetb/kubectx /opt/kubectx &>>$LOGFILE
 ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 VALIDATE $? "kubens installed....$Y SKIPPING $N"
 
 # extend disk
-growpart /dev/nvme0n1 4
-lvextend -l +50%FREE /dev/RootVG/rootVol
-lvextend -l +50%FREE /dev/RootVG/varVol
-xfs_growfs /
-xfs_growfs /var
-VALIDATE $? "Disk Resized....$Y SKIPPING $N"
+growpart /dev/nvme0n1 4 &>>$LOGFILE
+lvextend -l +50%FREE /dev/RootVG/rootVol &>>$LOGFILE
+lvextend -l +50%FREE /dev/RootVG/varVol &>>$LOGFILE
+xfs_growfs / &>>$LOGFILE
+xfs_growfs /var &>>$LOGFILE
+VALIDATE $? "Disk Resized....$Y SKIPPING $N" &>>$LOGFILE
 
 
 
 #installing ebs drivers
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32" #installing ebs drivers
-VALIDATE $? "installed ebs drivers....$Y SKIPPING $N"
+# kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32" #installing ebs drivers
+# VALIDATE $? "installed ebs drivers....$Y SKIPPING $N"
 
-#installing efs drivers
-kubectl kustomize \
-    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-2.0" > public-ecr-driver.yaml #installing eks drivers
-VALIDATE $? "installed efs drivers....$Y SKIPPING $N"
+# #installing efs drivers
+# kubectl kustomize \
+#     "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-2.0" > public-ecr-driver.yaml #installing eks drivers
+# VALIDATE $? "installed efs drivers....$Y SKIPPING $N"
 
 #installing k9s
 curl -sS https://webinstall.dev/k9s | bash #k9s installing 

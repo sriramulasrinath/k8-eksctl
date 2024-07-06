@@ -4,7 +4,7 @@ module "workstation" {
   name = "workstation"
   instance_type          = "t3.micro"
   vpc_security_group_ids = ["sg-00d8e884e38dae954"]
-  volume_tags       = var.volume_tags
+  volume_tags            = var.volume_tags
   subnet_id              = "subnet-09e5fbac6203f2585"
   ami                    = data.aws_ami.ami_info.id
 
