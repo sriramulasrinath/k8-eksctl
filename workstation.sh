@@ -1,5 +1,5 @@
 #!/bin/bash
-#https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/install-eks.sh
+#https://raw.githubusercontent.com/sriramulasrinath/k8-eksctl/main/workstation.sh
 
 R="\e[31m"
 G="\e[32m"
