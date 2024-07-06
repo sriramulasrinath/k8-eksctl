@@ -65,10 +65,10 @@ git clone https://github.com/sriramulasrinath/k8-eksctl.git
 git clone https://github.com/sriramulasrinath/k8-resources.git
 
 #helm install
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-VALIDATE $? "installed HElM....$Y SKIPPING $N"
+# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+# chmod 700 get_helm.sh
+# ./get_helm.sh
+# VALIDATE $? "installed HElM....$Y SKIPPING $N"
 
 cd k8-eksctl &>>$LOGFILE
 eksctl create cluster --config-file=eks.yml &>>$LOGFILE
