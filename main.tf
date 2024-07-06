@@ -4,19 +4,16 @@ module "workstation" {
   name = "workstation"
   instance_type          = "t3.micro"
   vpc_security_group_ids = ["sg-00d8e884e38dae954"]
+  volume_tags       = var.volume_tags
   subnet_id              = "subnet-09e5fbac6203f2585"
   ami                    = data.aws_ami.ami_info.id
+
   user_data = file("workstation.sh")
 
     
   tags = {
         Name = "workstation"
     }
- root_block_device = {
-    volume_type = "gp3"
-    volume_size = 50
-    encrypted   = false
-  }
 }
 
 module "records" {
