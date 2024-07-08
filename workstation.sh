@@ -74,3 +74,4 @@ cd k8-eksctl &>>$LOGFILE
 eksctl create cluster --config-file=eks.yml &>>$LOGFILE
 VALIDATE $? "created eksctl cluster...$Y SKIPPING $N"
 
+echo -e "${G}Log file: $LOGFILE${N}"
